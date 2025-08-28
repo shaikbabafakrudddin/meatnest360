@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', preloadImages);
 // Chatbot functionality
 let chatbotVisible = false;
 let chatHistory = [];
-const WEBHOOK_URL = 'https://bablu963.app.n8n.cloud/webhook-test/3e7192d1-037b-4187-b307-d5d379ede4cd';
+const WEBHOOK_URL = 'https://bablu963.app.n8n.cloud/webhook/3e7192d1-037b-4187-b307-d5d379ede4cd';
 
 // Initialize chatbot
 function initializeChatbot() {
