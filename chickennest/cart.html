@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart — ChickenNest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="container section-gap">
+    <h1 class="section-title">Your Cart</h1>
+    <div id="cart-empty" class="empty hidden">
+      <p>Your cart is empty. Explore our <a href="./menu.html" class="link">menu</a> to add dishes.</p>
+    </div>
+    <div id="cart-wrapper" class="cart-wrapper">
+      <div id="cart-items" class="cart-items"></div>
+      <aside class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-line"><span>Subtotal</span><span id="sum-subtotal">₹0</span></div>
+        <div class="summary-line"><span>Delivery</span><span id="sum-delivery">₹29</span></div>
+        <div class="summary-line total"><span>Total</span><span id="sum-total">₹0</span></div>
+        <button id="checkout-btn" class="btn btn-primary btn-lg w-100">Checkout</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="footer"></footer>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/data.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/cart.js"></script>
+</body>
+</html>

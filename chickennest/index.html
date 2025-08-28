@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChickenNest — Order Juicy Chicken & Meat Dishes</title>
+  <meta name="description" content="ChickenNest — premium food ordering for irresistible chicken and meat dishes. Fast delivery, smooth experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍗</text></svg>">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="hero" aria-label="Hero">
+      <div class="hero-media" role="img" aria-label="Juicy grilled chicken"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <h1 class="hero-title">Crave-worthy chicken, delivered fast.</h1>
+        <p class="hero-subtitle">Discover premium chicken and meat dishes crafted for flavor lovers. Fresh, hot, and at your door.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="./menu.html">Order Now</a>
+          <a class="btn btn-ghost btn-lg" href="#featured">Explore Menu</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="num">40k+</span><span class="label">Happy Foodies</span></div>
+          <div class="stat"><span class="num">15 min</span><span class="label">Avg Delivery</span></div>
+          <div class="stat"><span class="num">4.8★</span><span class="label">Top Rated</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured" class="section-gap container">
+      <div class="section-head">
+        <h2 class="section-title">Featured This Week</h2>
+        <a href="./menu.html" class="link">See full menu →</a>
+      </div>
+      <div id="featured-grid" class="card-grid"></div>
+    </section>
+
+    <section class="section-gap container">
+      <div class="promo">
+        <div class="promo-content">
+          <h3>Free Delivery on your first order!</h3>
+          <p>Use code <strong>NESTWELCOME</strong> at checkout.</p>
+        </div>
+        <a class="btn btn-accent" href="./menu.html">Grab the offer</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="footer"></footer>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/data.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

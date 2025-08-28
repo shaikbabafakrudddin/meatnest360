@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu — ChickenNest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="container section-gap">
+    <div class="section-head">
+      <h1 class="section-title">Our Menu</h1>
+      <div class="menu-actions">
+        <input id="menu-search" class="input" type="search" placeholder="Search dishes...">
+        <select id="menu-filter" class="select">
+          <option value="all">All</option>
+          <option value="chicken">Chicken</option>
+          <option value="grill">Grill</option>
+          <option value="spicy">Spicy</option>
+          <option value="sides">Sides</option>
+        </select>
+      </div>
+    </div>
+    <div id="menu-grid" class="card-grid"></div>
+  </main>
+
+  <footer id="site-footer" class="footer"></footer>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/data.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/menu.js"></script>
+</body>
+</html>

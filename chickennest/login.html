@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — ChickenNest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="container section-gap auth">
+    <div class="auth-card">
+      <h1 class="section-title">Welcome back</h1>
+      <form id="login-form" class="form">
+        <div class="field">
+          <label>Email</label>
+          <input name="email" type="email" class="input" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input name="password" type="password" class="input" placeholder="••••••••" required>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Login</button>
+        <p class="muted">New to ChickenNest? <a href="./signup.html" class="link">Create an account</a></p>
+      </form>
+    </div>
+  </main>
+
+  <footer id="site-footer" class="footer"></footer>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/auth.js"></script>
+</body>
+</html>
