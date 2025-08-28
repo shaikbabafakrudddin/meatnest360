@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ef4444" />
+    <title>ChickenNest | Order Delicious Chicken & Meat Online</title>
+    <meta name="description" content="ChickenNest - Premium online food ordering for juicy chicken and meat dishes. Fast delivery, great prices, and a modern experience." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="#home" class="brand" aria-label="ChickenNest home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+              <path d="M12 3c-1.6 0-3 .9-3.7 2.2C7.9 5.1 7.4 5 7 5 5.3 5 4 6.3 4 8c0 .7.3 1.4.7 1.9C3.7 10.6 3 11.7 3 13c0 2.2 1.8 4 4 4h1.1c.3 0 .6.2.7.5.7 1.5 2.2 2.5 3.9 2.5s3.2-1 3.9-2.5c.1-.3.4-.5.7-.5H17c2.2 0 4-1.8 4-4 0-1.3-.7-2.4-1.7-3.1.4-.5.7-1.2.7-1.9 0-1.7-1.3-3-3-3-.4 0-.9.1-1.3.2C15 3.9 13.6 3 12 3z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="brand-name">ChickenNest</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#menu" class="nav-link">Menu</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <button class="btn btn-ghost" id="authBtn">Login / Signup</button>
+            <a href="#cart" class="cart-link" id="cartBtn" aria-label="Open cart">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                <path d="M7 4h-2l-1 2m0 0l3 9h11l3-7H6m-2-2h2m3 15a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="cart-badge" id="cartCount">0</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="app">
+      <!-- Home / Landing -->
+      <section id="home" class="view view-home active" tabindex="-1">
+        <div class="hero">
+          <div class="container hero-grid">
+            <div class="hero-content">
+              <h1 class="hero-title">Juicy. Crispy. Legendary.</h1>
+              <p class="hero-subtitle">Order irresistible chicken & meat delicacies from the nest you can trust. Freshly cooked. Fast delivery. Every single time.</p>
+              <div class="hero-actions">
+                <a href="#menu" class="btn btn-primary">Order Now</a>
+                <a href="#menu" class="btn btn-outline">Explore Menu</a>
+              </div>
+              <div class="hero-stats">
+                <div><strong>2,500+</strong><span>5-star reviews</span></div>
+                <div><strong>25 min</strong><span>avg delivery</span></div>
+                <div><strong>100%</strong><span>fresh produce</span></div>
+              </div>
+            </div>
+            <div class="hero-media">
+              <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop" alt="Crispy fried chicken bucket" />
+                <div class="hero-card-badge">Chef's Special</div>
+              </div>
+              <div class="hero-orb orb-red"></div>
+              <div class="hero-orb orb-orange"></div>
+            </div>
+          </div>
+        </div>
+
+        <section class="section featured">
+          <div class="container">
+            <div class="section-head">
+              <h2>Best Sellers</h2>
+              <a href="#menu" class="link">See full menu →</a>
+            </div>
+            <div class="card-row" id="featuredRow" aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Menu -->
+      <section id="menu" class="view view-menu" tabindex="-1">
+        <div class="container">
+          <div class="section-head">
+            <h2>Our Menu</h2>
+            <div class="filters" id="menuFilters"></div>
+          </div>
+          <div class="menu-grid" id="menuGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Cart -->
+      <section id="cart" class="view view-cart" tabindex="-1">
+        <div class="container">
+          <div class="section-head">
+            <h2>Your Cart</h2>
+            <button class="btn btn-ghost" id="clearCartBtn">Clear Cart</button>
+          </div>
+          <div class="cart-layout">
+            <div class="cart-items" id="cartItems"></div>
+            <aside class="cart-summary">
+              <h3>Summary</h3>
+              <div class="summary-row"><span>Subtotal</span><strong id="summarySubtotal">₹0</strong></div>
+              <div class="summary-row"><span>Delivery</span><strong>₹30</strong></div>
+              <div class="summary-row total"><span>Total</span><strong id="summaryTotal">₹30</strong></div>
+              <button class="btn btn-primary w-full" id="checkoutBtn">Checkout</button>
+              <p class="muted">Dummy checkout for demo purposes.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="view view-about" tabindex="-1">
+        <div class="container narrow">
+          <h2>About ChickenNest</h2>
+          <p>We are on a mission to bring premium, lip-smacking chicken and meat dishes to your doorstep. Our chefs craft every recipe with love using the freshest ingredients, and our delivery partners ensure it reaches you hot and fast.</p>
+          <div class="features">
+            <div class="feature">
+              <div class="icon circle red"></div>
+              <h3>Premium Quality</h3>
+              <p>Fresh, antibiotic-free produce sourced daily. Your health matters.</p>
+            </div>
+            <div class="feature">
+              <div class="icon circle orange"></div>
+              <h3>Fast Delivery</h3>
+              <p>Lightning-fast deliveries with live order tracking coming soon.</p>
+            </div>
+            <div class="feature">
+              <div class="icon circle dark"></div>
+              <h3>Great Value</h3>
+              <p>Irresistible combos and offers that make every bite worth it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="view view-contact" tabindex="-1">
+        <div class="container narrow">
+          <h2>Contact Us</h2>
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Enter your name" required />
+              </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tell us what you crave..." required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send</button>
+            <p class="muted">We typically respond within a few hours. Demo only.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="#home" class="brand small"><span class="brand-mark"></span><span class="brand-name">ChickenNest</span></a>
+          <p class="muted">© <span id="year"></span> ChickenNest. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="#menu">Menu</a>
+          <a href="#home">Home</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal" aria-hidden="true" aria-labelledby="authTitle" role="dialog">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-panel" role="document">
+        <button class="modal-close" id="closeAuth" aria-label="Close auth modal">×</button>
+        <div class="modal-header">
+          <h3 id="authTitle">Welcome to ChickenNest</h3>
+          <div class="tabs">
+            <button class="tab active" data-tab="login">Login</button>
+            <button class="tab" data-tab="signup">Signup</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm" class="form" autocomplete="on">
+            <div class="form-field">
+              <label for="loginEmail">Email</label>
+              <input id="loginEmail" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-field">
+              <label for="loginPassword">Password</label>
+              <input id="loginPassword" name="password" type="password" placeholder="••••••••" required />
+            </div>
+            <button class="btn btn-primary w-full" type="submit">Login</button>
+          </form>
+          <form id="signupForm" class="form hidden" autocomplete="on">
+            <div class="form-field">
+              <label for="signupName">Name</label>
+              <input id="signupName" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-field">
+              <label for="signupEmail">Email</label>
+              <input id="signupEmail" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-field">
+              <label for="signupPassword">Password</label>
+              <input id="signupPassword" name="password" type="password" placeholder="Create a password" required />
+            </div>
+            <button class="btn btn-primary w-full" type="submit">Create account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./scripts/app.js"></script>
+  </body>
+  </html>
+
