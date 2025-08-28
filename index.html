@@ -307,6 +307,54 @@
         </div>
     </div>
 
+    <!-- AI Chatbot -->
+    <div id="chatbot-container">
+        <div id="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-comments"></i>
+            <span class="chat-notification" id="chatNotification">1</span>
+        </div>
+        
+        <div id="chatbot-window" class="chatbot-hidden">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i>
+                    <span>ChickenNest AI Assistant</span>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your ChickenNest AI assistant. How can I help you today? 🍗</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-typing" id="chatbot-typing" style="display: none;">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span>AI is typing...</span>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input-field" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                <button id="chatbot-send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

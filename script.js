@@ -667,3 +667,255 @@ function preloadImages() {
 
 // Call preload function after DOM is loaded
 document.addEventListener('DOMContentLoaded', preloadImages);
+
+// Chatbot functionality
+let chatbotVisible = false;
+let chatHistory = [];
+const WEBHOOK_URL = 'https://bablu963.app.n8n.cloud/webhook-test/3e7192d1-037b-4187-b307-d5d379ede4cd';
+
+// Initialize chatbot
+function initializeChatbot() {
+    // Load chat history from localStorage
+    const savedHistory = localStorage.getItem('chickennest_chat');
+    if (savedHistory) {
+        chatHistory = JSON.parse(savedHistory);
+        renderChatHistory();
+    }
+    
+    // Hide notification after first interaction
+    const hasInteracted = localStorage.getItem('chickennest_chat_interacted');
+    if (hasInteracted) {
+        const notification = document.getElementById('chatNotification');
+        if (notification) {
+            notification.style.display = 'none';
+        }
+    }
+}
+
+// Toggle chatbot visibility
+function toggleChatbot() {
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const notification = document.getElementById('chatNotification');
+    
+    chatbotVisible = !chatbotVisible;
+    
+    if (chatbotVisible) {
+        chatbotWindow.classList.remove('chatbot-hidden');
+        chatbotWindow.classList.add('chatbot-visible');
+        
+        // Hide notification on first open
+        if (notification) {
+            notification.style.display = 'none';
+            localStorage.setItem('chickennest_chat_interacted', 'true');
+        }
+        
+        // Focus on input field
+        setTimeout(() => {
+            const inputField = document.getElementById('chatbot-input-field');
+            if (inputField) {
+                inputField.focus();
+            }
+        }, 300);
+    } else {
+        chatbotWindow.classList.remove('chatbot-visible');
+        chatbotWindow.classList.add('chatbot-hidden');
+    }
+}
+
+// Handle Enter key press in chat input
+function handleChatKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
+
+// Send message to AI
+async function sendMessage() {
+    const inputField = document.getElementById('chatbot-input-field');
+    const sendBtn = document.getElementById('chatbot-send-btn');
+    const message = inputField.value.trim();
+    
+    if (!message) return;
+    
+    // Disable input and button
+    inputField.disabled = true;
+    sendBtn.disabled = true;
+    
+    // Add user message to chat
+    addMessageToChat(message, 'user');
+    inputField.value = '';
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    try {
+        // Send message to webhook
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                timestamp: new Date().toISOString(),
+                user: currentUser ? currentUser.name : 'Guest',
+                context: 'ChickenNest Food Delivery'
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Hide typing indicator
+        hideTypingIndicator();
+        
+        // Add AI response to chat
+        const aiResponse = data.response || data.message || 'Sorry, I couldn\'t process that request. Please try again.';
+        addMessageToChat(aiResponse, 'bot');
+        
+    } catch (error) {
+        console.error('Chatbot error:', error);
+        hideTypingIndicator();
+        
+        // Add error message
+        const errorMessage = 'Sorry, I\'m having trouble connecting right now. Please try again in a moment.';
+        addMessageToChat(errorMessage, 'bot');
+    }
+    
+    // Re-enable input and button
+    inputField.disabled = false;
+    sendBtn.disabled = false;
+    inputField.focus();
+}
+
+// Add message to chat UI
+function addMessageToChat(message, sender) {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${sender}-message`;
+    
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    messageElement.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas ${sender === 'bot' ? 'fa-robot' : 'fa-user'}"></i>
+        </div>
+        <div class="message-content">
+            <p>${message}</p>
+            <span class="message-time">${currentTime}</span>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(messageElement);
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Save to chat history
+    chatHistory.push({
+        message,
+        sender,
+        timestamp: new Date().toISOString()
+    });
+    
+    saveChatHistory();
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    const typingIndicator = document.getElementById('chatbot-typing');
+    typingIndicator.style.display = 'flex';
+    
+    // Scroll to bottom to show typing indicator
+    const messagesContainer = document.getElementById('chatbot-messages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Hide typing indicator
+function hideTypingIndicator() {
+    const typingIndicator = document.getElementById('chatbot-typing');
+    typingIndicator.style.display = 'none';
+}
+
+// Render chat history
+function renderChatHistory() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    
+    // Clear existing messages except welcome message
+    const welcomeMessage = messagesContainer.querySelector('.bot-message');
+    messagesContainer.innerHTML = '';
+    
+    // Re-add welcome message
+    if (welcomeMessage) {
+        messagesContainer.appendChild(welcomeMessage);
+    }
+    
+    // Add chat history
+    chatHistory.forEach(chat => {
+        addMessageToChat(chat.message, chat.sender);
+    });
+}
+
+// Save chat history to localStorage
+function saveChatHistory() {
+    localStorage.setItem('chickennest_chat', JSON.stringify(chatHistory));
+}
+
+// Clear chat history
+function clearChatHistory() {
+    chatHistory = [];
+    localStorage.removeItem('chickennest_chat');
+    
+    const messagesContainer = document.getElementById('chatbot-messages');
+    messagesContainer.innerHTML = `
+        <div class="message bot-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p>Hello! I'm your ChickenNest AI assistant. How can I help you today? 🍗</p>
+                <span class="message-time">Just now</span>
+            </div>
+        </div>
+    `;
+}
+
+// Initialize chatbot when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeChatbot();
+    
+    // Add quick response suggestions
+    setTimeout(() => {
+        if (!chatbotVisible && chatHistory.length === 0) {
+            // Show a subtle notification for new users
+            const notification = document.getElementById('chatNotification');
+            if (notification && !localStorage.getItem('chickennest_chat_interacted')) {
+                notification.style.display = 'flex';
+            }
+        }
+    }, 3000);
+});
+
+// Add some predefined responses for common questions
+const quickResponses = {
+    'menu': 'You can view our delicious menu by scrolling up or clicking the "Menu" section. We have grilled chicken, fried options, wings, and sides!',
+    'hours': 'We\'re open 24/7 for your convenience! Our kitchen never sleeps.',
+    'delivery': 'We deliver fresh, hot food in 15-30 minutes. Free delivery on orders over $25!',
+    'contact': 'You can reach us at +1 (555) 123-NEST or hello@chickennest.com. We\'re always here to help!'
+};
+
+// Enhanced message processing for local responses
+function processLocalResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    for (const [key, response] of Object.entries(quickResponses)) {
+        if (lowerMessage.includes(key)) {
+            return response;
+        }
+    }
+    
+    return null;
+}
