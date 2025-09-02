@@ -306,55 +306,72 @@
             </div>
         </div>
     </div>
-
-    <!-- AI Chatbot -->
-    <div id="chatbot-container">
-        <div id="chatbot-toggle" onclick="toggleChatbot()">
-            <i class="fas fa-comments"></i>
-            <span class="chat-notification" id="chatNotification">1</span>
-        </div>
-        
-        <div id="chatbot-window" class="chatbot-hidden">
-            <div class="chatbot-header">
-                <div class="chatbot-title">
-                    <i class="fas fa-robot"></i>
-                    <span>ChickenNest AI Assistant</span>
-                </div>
-                <button class="chatbot-close" onclick="toggleChatbot()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="message bot-message">
-                    <div class="message-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <p>Hello! I'm your ChickenNest AI assistant. How can I help you today? 🍗</p>
-                        <span class="message-time">Just now</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="chatbot-typing" id="chatbot-typing" style="display: none;">
-                <div class="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <span>AI is typing...</span>
-            </div>
-            
-            <div class="chatbot-input">
-                <input type="text" id="chatbot-input-field" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
-                <button id="chatbot-send-btn" onclick="sendMessage()">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script src="script.js"></script>
+</body>
+</html>
+  <meta charset="UTF-8">
+  <title>n8n Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #chat-container {
+      width: 300px; height: 400px; border: 1px solid #ccc;
+      display: flex; flex-direction: column; position: fixed;
+      bottom: 20px; right: 20px; background: #fff;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+    #messages { flex: 1; padding: 10px; overflow-y: auto; }
+    .msg { margin: 5px 0; padding: 8px; border-radius: 8px; max-width: 80%; }
+    .user { background: #d1e7ff; align-self: flex-end; }
+    .bot { background: #eee; align-self: flex-start; }
+    #input-container { display: flex; border-top: 1px solid #ccc; }
+    #input { flex: 1; padding: 8px; border: none; outline: none; }
+    button { padding: 8px 12px; border: none; background: #007bff; color: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="messages"></div>
+    <div id="input-container">
+      <input id="input" type="text" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const webhookUrl = "https://bablu963.app.n8n.cloud/webhook/3e7192d1-037b-4187-b307-d5d379ede4cd"; // 🔗 Replace with your n8n webhook
+
+    async function sendMessage() {
+  const input = document.getElementById("input");
+  const text = input.value.trim();
+  if (!text) return;
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+
+    const reply = await res.text(); // webhook usually returns plain text
+    addMessage(reply, "bot");
+  } catch (err) {
+    console.error(err);
+    addMessage("Error connecting to server", "bot");
+  }
+
+  addMessage(text, "user");
+  input.value = "";
+}
+
+
+
+    function addMessage(text, sender) {
+      const msgContainer = document.createElement("div");
+      msgContainer.className = "msg " + sender;
+      msgContainer.textContent = text;
+      document.getElementById("messages").appendChild(msgContainer);
+      document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    }
+  </script>
 </body>
 </html>
